@@ -1,0 +1,21 @@
+POST http://localhost:3004/register HTTP/1.1
+content-type: application/json
+
+{
+    "username":"chigbo",
+    "email":"chigbo@gmail.com",
+    "password":"chigbo"
+}
+
+###
+POST http://localhost:3004/login HTTP/1.1
+content-type: application/json
+
+{
+    "username":"chigbo",
+    "password":"chigbo"
+}
+
+###
+GET http://localhost:3004/user HTTP/1.1
+content-type: application/json
