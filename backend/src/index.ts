@@ -1,3 +1,4 @@
+import express from "express";
 import cors from "cors";
 import passport from "passport";
 import passportLocal from "passport-local";
@@ -6,8 +7,8 @@ import session from "express-session";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import express, {Request, Response, NextFunction} from "express";
 import User from "./models/User";
+import userRouter from "./routers/user";
 import {UserInterface} from "./interfaces/UserInterface"
 
 const LocalStrategy = passportLocal.Strategy
@@ -35,68 +36,38 @@ app.use(passport.session());
 
 //Passport 
 passport.use(new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err:Error, user:any) => {
+  User.findOne({ username: username }, (err:Error, user:any) => {
+    if (err) throw err;
+    if (!user) return done(null, false);
+    bcrypt.compare(password, user.password, (err, result) => {
       if (err) throw err;
-      if (!user) return done(null, false);
-      bcrypt.compare(password, user.password, (err, result) => {
-        if (err) throw err;
-        if (result === true) {
-          return done(null, user);
-        } else {
-          return done(null, false);
-        }
-      });
+      if (result === true) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
     });
-  })
+  });
+})
 );
 
-  passport.serializeUser((user:any, cb) => {
-    cb(null, user._id);
-  });
-  
-  passport.deserializeUser((id: string, cb) => {
-    User.findOne({ _id: id }, (err:Error, user:any) => {
-      const userInformation = {
-        username: user.username,
-        isAdmin: user.isAdmin,
-      };
-      cb(err, userInformation);
-    });
-  });
-
-//Routes
-app.post("/register", async(req:Request, res:Response, next:NextFunction) => {
-           // checks if user already exists
-        const {username, email, password} = req?.body
-        if(!username|| !password || !email || typeof username !== "string"|| typeof password!=="string" || typeof email!=="string"){
-            res.send("invalid values");
-            return;
-        }
-
-        User.findOne({email}, async(err:Error, doc:UserInterface) => {
-            if(err) throw err;
-            if(doc) res.send("User already exists");
-            if(!doc){
-                const hashedPassword = await bcrypt.hash(password, 10);
-                const newUser = new User({
-                    username,
-                    email,
-                    password:hashedPassword
-                })
-                await newUser.save();
-                res.send("user created successfully");
-        }
-    })
-})
-
-app.post("/login", passport.authenticate("local", { failureRedirect: '/login', failureMessage: true }), (req, res) => {
-    res.send("Success");
+passport.serializeUser((user:any, cb) => {
+  cb(null, user._id);
 });
 
-app.get("/user", (req, res) => {
-    res.send(req.user);
-})
+passport.deserializeUser((id: string, cb) => {
+  User.findOne({ _id: id }, (err:Error, user:any) => {
+    const userInformation = {
+      username: user.username,
+      isAdmin: user.isAdmin,
+    };
+    cb(err, userInformation);
+  });
+});
+
+//Routes
+app.use("/api/v1/users", userRouter);
       
 app.listen(3004, ()=>{
-    console.log("start server at 3001");
+    console.log("start server at 3004");
 })

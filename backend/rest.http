@@ -8,7 +8,7 @@ content-type: application/json
 }
 
 ###
-POST http://localhost:3004/login HTTP/1.1
+POST http://localhost:3004/api/v1/users/login HTTP/1.1
 content-type: application/json
 
 {
@@ -17,5 +17,5 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:3004/user HTTP/1.1
+GET http://localhost:3004/api/v1/users/user HTTP/1.1
 content-type: application/json
