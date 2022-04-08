@@ -1,4 +1,10 @@
-import mongoose from "mongoose";
+import mongoose, {Document} from "mongoose";
+import { UserInterface } from "src/interfaces/UserInterface";
+
+
+export type UserDoc = Document & {
+    orders: UserInterface[];
+}
 
 const user = new mongoose.Schema({
     username:{
@@ -17,4 +23,4 @@ const user = new mongoose.Schema({
     }
 })
 
-export default mongoose.model("User", user);
+export default mongoose.model<UserDoc>("User", user);

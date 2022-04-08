@@ -9,7 +9,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import User from "./models/User";
 import userRouter from "./routers/user";
-import {UserInterface} from "./interfaces/UserInterface"
+import orderRouter from "./routers/order";
+import {UserInterface} from "./interfaces/UserInterface";
 
 const LocalStrategy = passportLocal.Strategy
 // Mongoose 
@@ -67,6 +68,7 @@ passport.deserializeUser((id: string, cb) => {
 
 //Routes
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/orders", orderRouter);
       
 app.listen(3004, ()=>{
     console.log("start server at 3004");

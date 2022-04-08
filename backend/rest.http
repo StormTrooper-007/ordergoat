@@ -19,3 +19,24 @@ content-type: application/json
 ###
 GET http://localhost:3004/api/v1/users/user HTTP/1.1
 content-type: application/json
+
+###
+POST http://localhost:3004/api/v1/orders HTTP/1.1
+content-type: application/json
+
+       {
+           "orders":
+           [
+            {
+            "name": "Magherita",
+            "image":"image",
+            "price":20,
+            "section":"pizza",
+            "quantity":2,
+            "notes":"No onions please",
+            "table":"301",
+            "day":"tuesday",
+            "time":"wednesday"
+            }
+           ]
+       }
