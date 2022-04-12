@@ -15,6 +15,10 @@ const deleteById = async (orderId: string): Promise<OrderDoc | null> => {
     return foundOrder;
   }
 
+  async function findAllOrders(): Promise<OrderDoc[]> {
+    return Order.find()
+  }
+
 export async function createOrder(req:Request, res:Response, next:NextFunction){
     try{
         const {orders} = req.body
@@ -34,5 +38,13 @@ export async function deleteOrder (req: Request, res: Response, next: NextFuncti
       res.send("order deleted");
     } catch (e) {
         console.log(e);
+    }
+}
+
+export async function getOrders (req: Request, res: Response, next: NextFunction){
+    try{
+        res.json(await findAllOrders())
+    }catch(e){
+        console.log(e)
     }
 }

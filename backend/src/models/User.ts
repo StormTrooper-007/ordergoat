@@ -3,7 +3,7 @@ import { UserInterface } from "src/interfaces/UserInterface";
 
 
 export type UserDoc = Document & {
-    orders: UserInterface[];
+    users: UserInterface[];
 }
 
 const user = new mongoose.Schema({
