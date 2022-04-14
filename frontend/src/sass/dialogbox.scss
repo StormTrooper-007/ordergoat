@@ -1,0 +1,33 @@
+.dialog__container{
+    position: fixed;
+    top: 180px;
+    left: 50px;
+    min-height: 300px;
+    width: 400px;
+    background-color: white;
+    z-index: 15;
+  img{
+      height: 150px;
+      width: 100%;
+      object-fit: cover;
+      object-position: 0% 40%;
+  }
+  main{
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      .quantity__container{
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          #minus{
+              pointer-events: none;
+              opacity: 0.4;
+          }
+      }
+  }
+  footer{
+      padding: 10px;
+      border-top: 1px solid lightgray;
+  }
+}

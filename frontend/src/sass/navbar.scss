@@ -1,0 +1,34 @@
+nav{
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .nav__icon{
+        margin-left: 10px;
+        border: 2px solid #0e68a3;
+    }
+    .nav__appname{
+        font-family: 'Beau Rivage', cursive;
+        font-size: 40px;
+        font-weight: 600;
+        color:#0e68a3;
+    }
+    ul{
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        font-size:medium;
+        font-weight: 400;
+        li{
+            list-style-type:none;
+            margin-right:10px;
+            
+        }
+    }
+}

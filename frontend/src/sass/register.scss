@@ -1,0 +1,26 @@
+
+
+.register__container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .register__border{
+        border: 1px solid lightgray;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        min-width: 30px;
+        min-height: 30px;
+        margin: 150px;
+        border-radius: 5px;
+            input{
+                margin: 10px;
+            }
+            button{
+                margin:10px;
+            }
+    }
+}
