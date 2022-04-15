@@ -65,6 +65,7 @@ const { user } = useSelector((state: rootState) => state.user);
       const res = await axios.post("http://localhost:3004/api/v1/orders", req, {
         withCredentials: true,
       });
+      setOrders([]);
       console.log(res.data);
     } catch (e) {
       console.log(e);
@@ -168,6 +169,17 @@ const { user } = useSelector((state: rootState) => state.user);
                 <div>{order.time}</div>
               </div>
             ))}
+            {orders.length >= 1 
+            ? (
+            <Button
+             variant="contained" 
+             size="small" 
+             style={{marginTop:10}}
+             onClick={() => navigate("/tables")}
+             >
+               Choose Table!!!
+             </Button>)
+             :null}
           </div>
           <h2>Total Price</h2>
           <h2>{formatPrice(totalPrice(orders))}</h2>

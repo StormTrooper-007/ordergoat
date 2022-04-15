@@ -36,10 +36,10 @@ export function Navbar({ user, handleSwitch }: Props) {
   return (
     <>
       <nav>
-        <div className="nav__icon" onClick={handleSwitch}>
+        <div className="nav__icon" onClick={handleSwitch} style={{cursor:"pointer"}}>
         <CategoryTwoToneIcon style={{ fontSize: 40, color: "#0e68a3" }} />
         </div>
-        <div className="nav__appname">Ordergoat</div>
+        <div className="nav__appname" onClick={() => navigate("/")} style={{cursor:"pointer"}}>Ordergoat</div>
         <ul>
           {user && <li><Button variant="outlined" style ={{marginTop:4}}>logged in as {user.username}</Button></li>}
           {user && <Button size="small"

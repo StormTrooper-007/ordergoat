@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useNavigate } from "react-router-dom";
 import "../sass/table.scss";
 
 type Props = {
@@ -6,15 +7,15 @@ type Props = {
     t:number
 }
 
-export function Table({setTableNumber,t}: Props) {
+export function Table({setTableNumber, t}: Props) {
     const [active, setActive] = useState<boolean>(false);
-
+    const navigate = useNavigate();
     function changeTableNumber(){
         setTableNumber(t);
         setActive(!active);
+        navigate("/");
     }
-
-  return <div className={active ? `table__active`:`table`} onClick={changeTableNumber}>{t}</div>
+  return <div className="table" onClick={changeTableNumber}>{t}</div>
 }
 
 

@@ -11,6 +11,7 @@
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 10px;
         width: 100%;
+        cursor:pointer;
     }
     .home__order__list{
         min-height: 200px;

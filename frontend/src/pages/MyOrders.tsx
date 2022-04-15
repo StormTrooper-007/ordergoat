@@ -18,13 +18,6 @@ export function MyOrders({ myorders, off, handleSwitch }: Props) {
     return temp;
   };
 
-function calcTotal(price:any, quantity:any){
-  let sum:any = 0;
-  let re = price*quantity;
-  sum+=re;
-  return sum;
-}
-
   return(
     <>
     {off && <Sidebar handleSwitch={handleSwitch} />}
@@ -38,7 +31,7 @@ function calcTotal(price:any, quantity:any){
              <h1> Order {""} {Number(key) + 1} </h1>
              {getArr(myorders)[key].map((item:any, index:number) => {
                return(
-              <div key={index+1}>
+              <div key={item.name}>
                 <div className="myorders__list__row">
                 <span>{index + 1}.</span>
                 <li>Order name: {item.name} </li>
