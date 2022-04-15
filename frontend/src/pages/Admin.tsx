@@ -15,6 +15,7 @@ type Props = {
 export function Admin({ off, handleSwitch }: Props) {
   const [users, setUsers] = useState<any[]>([]);
 
+
   async function getAllusers() {
     try {
       const res = await axios.get("http://localhost:3004/api/v1/users", {
@@ -35,6 +36,8 @@ export function Admin({ off, handleSwitch }: Props) {
     setUsers(res.data);
     console.log(res.data);
   }
+
+ 
 
   const navigate = useNavigate();
 
@@ -59,15 +62,31 @@ export function Admin({ off, handleSwitch }: Props) {
               >
                 Edit user
               </Button>
-              <Button
+              {
+               !userInfo.isAdmin ? 
+              (<Button
                 variant="outlined"
                 size="small"
                 color="error"
                 style={{ margin: 20 }}
                 onClick={() => deleteUser(userInfo._id)}
+  
               >
                 Delete
-              </Button>
+              </Button>):
+              (<Button
+                variant="outlined"
+                size="small"
+                color="error"
+                style={{ margin: 20 }}
+                onClick={() => deleteUser(userInfo._id)}
+                disabled
+               >
+                 Delete
+              </Button>)
+              } 
+              {!userInfo.isAdmin ? (<Button variant = "outlined" >Assign Admin</Button>) : 
+              (<Button variant = "outlined"  disabled>Assign Admin</Button>)}
             </div>
           </div>
         ))}

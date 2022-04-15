@@ -5,20 +5,20 @@ import { UserInterface } from "../interfaces/UserInterface";
 import UserServices from "../services/UserServices";
 
 /** Don't really need this middleware for now since I have implemented  authorization in the frontend **/
-// function isAdministratorMiddleWare(req:Request, res:Response, next:NextFunction){
-//     const {user}:any = req;
-//     if(user){
-//         User.findOne({username:user.username}, (err:Error, doc:UserInterface) => {
-//             if(err) throw err;
-//             if(doc?.isAdmin){
-//                 next();
-//             }else{
-//                 res.send("sorry only admins can perform this")
-//             }
-//         })
-//     }
-//     res.send("sorry you are not logged in");
-// }
+export function isAdministratorMiddleWare(req:Request, res:Response, next:NextFunction){
+    const {user}:any = req;
+    if(user){
+        User.findOne({username:user.username}, (err:Error, doc:UserInterface) => {
+            if(err) throw err;
+            if(doc?.isAdmin){
+                next();
+            }else{
+                res.send("sorry only admins can perform this")
+            }
+        })
+    }
+    res.send("sorry you are not logged in");
+}
 
 
 export async function createUser(req:Request, res:Response, next:NextFunction){
@@ -81,6 +81,17 @@ export async function updateUser( req: Request, res: Response, next: NextFunctio
     try{
         const update = req.body;
         const userId = req.params.userId;
+        const updatedUser = await UserServices.updateU(userId, update);
+        res.send(updatedUser);
+    }catch(e){
+        console.log(e);
+    }
+}
+
+export async function updateUserByAdmin(req: Request, res: Response, next: NextFunction){
+    try{
+        const userId = req.params.userId;
+        const update = req.body;
         const updatedUser = await UserServices.updateU(userId, update);
         res.send(updatedUser);
     }catch(e){

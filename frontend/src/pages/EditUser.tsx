@@ -5,6 +5,7 @@ import { useState, ChangeEvent, useEffect } from "react";
 import axios from "axios";
 import "../sass/edituser.scss";
 import { useParams } from "react-router-dom";
+import {ToggleAdmin} from "../components/ToggleAdmin";
 
 type Props = {
   off: boolean;
@@ -18,13 +19,21 @@ export function EditUser({ off, handleSwitch }: Props) {
     email: string;
   }
 
+
   const initialState: InitialState = {
     username: "",
     email: "",
   };
 
   const [state, setState] = useState<InitialState>(initialState);
-  let { username, email } = state;
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  
+  let { username, email} = state;
+
+  function handleToggle(){
+    setIsAdmin((prev) => !prev)
+    console.log(isAdmin)
+  }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>): void {
     let { name, value } = e.target;
@@ -52,7 +61,7 @@ export function EditUser({ off, handleSwitch }: Props) {
     try {
       const res = await axios.put(
         `http://localhost:3004/api/v1/users/${userId}`,
-        { email, username },
+        { email, username, isAdmin },
         { withCredentials: true }
       );
       console.log(res.data);
@@ -84,6 +93,10 @@ export function EditUser({ off, handleSwitch }: Props) {
             value={email}
             onChange={handleChange}
           />
+        </label>
+        <label>
+          Toggle admin role
+          <ToggleAdmin handleToggle ={handleToggle} isAdmin={isAdmin}/>
         </label>
         <Button
           variant="contained"

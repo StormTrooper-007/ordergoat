@@ -10,7 +10,7 @@ async function delet(userId: string): Promise<UserDoc | null>{
   }
 
 async function updateU(userId: string,
-    update: Partial<UserDoc>):Promise<UserDoc | null>{
+    update:Partial<UserDoc>):Promise<UserDoc | null>{
         const foundUser = await User.findByIdAndUpdate(userId, update, {
             new:true,
         })
@@ -18,7 +18,8 @@ async function updateU(userId: string,
             console.log(`User ${userId} not found`);
         }
         return foundUser;
-}
+    }
+
 
 
 async function findUserWithId(userId:string):Promise<UserDoc | null>{
@@ -33,4 +34,5 @@ export default {
     delet,
     updateU, 
     findUserWithId,
+   
 }

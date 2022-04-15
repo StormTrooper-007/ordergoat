@@ -75,6 +75,7 @@ function App() {
         <Route path="/admin" element={<RequireAdminAuth>
           <Admin {...off}/>
         </RequireAdminAuth>}/>
+        <Route path="/edituser/:userId" element={<EditUser {...off} handleSwitch={off.handleSwitch}/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -18,12 +18,13 @@ export function MyOrders({ myorders, off, handleSwitch }: Props) {
     return temp;
   };
 
- console.log(Object.values(myorders).map((value:any) => {
-   return (
-     value.map((item:any) => item.price * item.quantity)
-   )
- }))
- 
+function calcTotal(price:any, quantity:any){
+  let sum:any = 0;
+  let re = price*quantity;
+  sum+=re;
+  return sum;
+}
+
   return(
     <>
     {off && <Sidebar handleSwitch={handleSwitch} />}
@@ -37,20 +38,20 @@ export function MyOrders({ myorders, off, handleSwitch }: Props) {
              <h1> Order {""} {Number(key) + 1} </h1>
              {getArr(myorders)[key].map((item:any, index:number) => {
                return(
-              <>
+              <div key={index+1}>
                 <div className="myorders__list__row">
                 <span>{index + 1}.</span>
-                <li>Order name: {item.name}</li>
+                <li>Order name: {item.name} </li>
                 <li>Price: {formatPrice(item.price)}</li>
                 <li> Quantity: {item.quantity}</li>
-                <li>Notes: {item.notes}</li>
-                <li> TableNo: {item.table}</li>
-                <li> Item Id: {item._id}</li>
-                <li> date: {item.day}</li>
-                <li> time: {item.time}</li>
-                <li>Total: {formatPrice(item.quantity * item.price)}</li>
+                <li>Notes: {item.notes} </li>
+                <li> TableNo: {item.table} </li>
+                <li> Item Id: {item._id} </li>
+                <li> date: {item.day} </li>
+                <li> time: {item.time} </li>
+                <li> Total: {formatPrice(item.quantity * item.price)} </li>
                 </div>
-              </>)
+              </div>)
              })}
            </div>
          )
